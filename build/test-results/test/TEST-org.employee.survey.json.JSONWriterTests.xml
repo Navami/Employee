@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.employee.survey.json.JSONWriterTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-06-09T21:34:59" hostname="LAPTOP-18HN4L55" time="0.479">
+  <properties/>
+  <testcase name="testWrite_success" classname="org.employee.survey.json.JSONWriterTests" time="0.479"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

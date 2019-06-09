@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.employee.survey.analysis.SurveyAnalyzerTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2019-06-09T21:34:59" hostname="LAPTOP-18HN4L55" time="0.217">
+  <properties/>
+  <testcase name="test_DivisionScope_success" classname="org.employee.survey.analysis.SurveyAnalyzerTests" time="0.209"/>
+  <testcase name="test_DivisionScope_failure" classname="org.employee.survey.analysis.SurveyAnalyzerTests" time="0.001"/>
+  <testcase name="test_NoEmployees_success" classname="org.employee.survey.analysis.SurveyAnalyzerTests" time="0.005"/>
+  <testcase name="test_CompanyScope_success" classname="org.employee.survey.analysis.SurveyAnalyzerTests" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

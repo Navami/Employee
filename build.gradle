@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = 'org.employee.application.Application'
+
+run {
+    if ( project.hasProperty("appArgs") ) {
+        args Eval.me(appArgs)
+    }
+}
+
+// tag::repositories[]
+repositories {
+    mavenCentral()
+}
+// end::repositories[]
+
+// tag::jar[]
+jar {
+    baseName = 'employee-survey-data'
+    version =  '0.1.0'
+}
+// end::jar[]
+
+// tag::dependencies[]
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+// https://mvnrepository.com/artifact/junit/junit
+testCompile group: 'junit', name: 'junit', version: '4.4'
+ testImplementation('org.junit.jupiter:junit-jupiter-api:5.4.2')
+    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.4.2')
+
+}
+test {
+print '-----Task Test----'
+    useJUnitPlatform()
+}
+
+// end::dependencies[]
