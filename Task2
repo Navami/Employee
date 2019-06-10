@@ -1,0 +1,63 @@
+I would write a crawler which will make sure the bwlow things are covered.
+
+Firstly I need to 
+1. Find a solution to keep the crawl running smoothly and efficiently.
+2. Ensuring high performance
+3. Avoiding Bot Detection
+    We need to make sure that individual HTTP requests dont appear to be coming from one centralized bot.
+	
+	To achieve this, make sure to
+	1. Spoof headers to make requests seem to be coming from a browser, not a script
+	2. Rotate IP's using a list of over 500 proxy servers 
+	3. Tak off "Tracking" query params from the url's to remove identifiers linking requests together
+4. Crawler needs to be Resilient
+    We need to be able to pause and continue the crawl, updating the code along the way without going back to where it started.
+	
+	To achieve the performance
+	
+	Need to Multi thread
+	In order to speed up things make your crawler multi thread. This allows CPU to stay busy working on one response or another even when requests taking several seconds to complete.
+	
+	Cannot go for single threaded. eg: get 200 threads running concurrently on the crawling machine, which can give 200x speed improvement without hitting any resource bottlenecks
+
+5. Finding the most used resource
+   We need to keep an eye on the CPU, memory, disk IO and Network IO. Most likely resource use up will be network IO. 
+   This bottleneck can be avoided by properly distinguishing the request patterns as below.
+   
+   1. use the cloud
+      Eg: Use single beefy EC2 cloud server from Amazon to run the crawl. This allows to spin up a very high performance machine that could be used for few hours without spending more money.
+	  This also means you dont have to burn your laptop resources and local ISP network pipes as crawl wasnt running from your computer.
+	  
+	  Make sure you stop your instances when you are done to save money again( in case if it runs idly overnight)
+	  
+6. Use a proxy server
+    If 1MM requests are coming from same IP, it would look suspicious to a site like amazon tracking crawlers.
+	Can use one high-performance EC2 server for orchestration, and then rent bandwidth on hundreds of other machines for proxying out the requests.
+	Eg: use something like ProxyBonanza to get access to machines
+
+7. Use a databse for storing product info: if needed
+
+8. Use Redis for storing a quese of URL's to scrape
+   store the frontier of urls that your waiting to scawl in an in memeory cache like redis. 
+   If the cache isaccessible over network this allows you to spin up multiple crawling machines and have them all pulling from the same backlog of url's to crawl.
+   
+9. Log to a file
+   Makes it easier to go back and look for issues.
+   Can log the current url that was crawled, so I could easily know how deep it was in any category.
+   
+10. Spoof headers
+   If you don’t spoof the User Agent, you’ll get a generic anti-crawling response for every request Amazon.
+   Just make a GET request to the right URL – through a proxy server – and spoof the User Agent and that’s it.
+
+11. Products Don’t Have Unique URLs
+    It’s entirely possible for the exact same product to be sold by multiple sellers. 
+    You might look for ISBN or SKU for some kinds of products, or something like the primary product image URL or a hash of the primary image.
+
+
+Finally We can write a code in any language ( preferably python) to start this crwaler. Which would achieve the following
+
+    1. supports hundreds of simultaneous requests, depending on machine's limits
+	2. supports using proxy servers
+	3. supports scaling to multiple machines orchestrating the crawl and keeping in sync
+	4. can be paused and restarted without losing its place
+	5. logs progress and warning conditions to a file for later analysis
